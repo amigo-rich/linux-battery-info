@@ -244,11 +244,11 @@ impl std::fmt::Display for PowerSupplySerialNumber {
 #[derive(Debug)]
 pub struct Battery {
     capacity: PowerSupplyCapacity,
-    status: PowerSupplyStatus,
     capacity_level: PowerSupplyCapacityLevel,
     manufacturer: PowerSupplyManufacturer,
     model_name: PowerSupplyModelName,
     serial_number: PowerSupplySerialNumber,
+    status: PowerSupplyStatus,
 }
 
 impl std::fmt::Display for Battery {
@@ -269,11 +269,11 @@ impl std::fmt::Display for Battery {
 impl Battery {
     pub fn new() -> Result<Battery, Error> {
         let mut capacity = PowerSupplyCapacity::default();
-        let mut status = PowerSupplyStatus::default();
         let mut capacity_level = PowerSupplyCapacityLevel::default();
         let mut manufacturer = PowerSupplyManufacturer::default();
         let mut model_name = PowerSupplyModelName::default();
         let mut serial_number = PowerSupplySerialNumber::default();
+        let mut status = PowerSupplyStatus::default();
 
         let sys_fs_battery_path = Path::new("/sys/class/power_supply/BAT1/");
         if !sys_fs_battery_path.is_dir() {
@@ -322,7 +322,7 @@ impl Battery {
             capacity_level,
             manufacturer,
             model_name,
-            serial_number,
+	    serial_number,
             status,
         })
     }
