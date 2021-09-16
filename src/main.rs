@@ -1,3 +1,7 @@
+use linux_battery_info::battery::Battery;
+use linux_battery_info::run;
+
 fn main() {
-    println!("Hello, world!");
+    let laptop_battery = run().unwrap();
+    println!("{:?}", laptop_battery);
 }
