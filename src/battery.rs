@@ -277,7 +277,7 @@ impl Battery {
 
         let sys_fs_battery_path = Path::new("/sys/class/power_supply/BAT1/");
         if !sys_fs_battery_path.is_dir() {
-            return Err(Error::SysFsBatteryPath);
+            return Err(Error::SysFsBatteryPath(sys_fs_battery_path.to_path_buf()));
         }
         for item in &[
             "capacity",
@@ -289,7 +289,7 @@ impl Battery {
         ] {
             let item_path = sys_fs_battery_path.join(Path::new(item));
             if !item_path.is_file() {
-                return Err(Error::SysFsBatteryItemPath);
+                return Err(Error::SysFsBatteryItemPath(item_path.to_path_buf()));
             }
             let item_content = std::fs::read_to_string(&item_path)?;
             if item_content.is_empty() {
@@ -314,7 +314,7 @@ impl Battery {
                         PowerSupplySerialNumber::try_from(item_content.as_str())?
                 }
                 "status" => status = PowerSupplyStatus::try_from(item_content.as_str())?,
-                _ => return Err(Error::SysFsBatteryItem),
+                _ => return Err(Error::SysFsBatteryItemUnknown(String::from(*item))),
             }
         }
         Ok(Battery {
