@@ -37,14 +37,14 @@ impl TryFrom<&str> for PowerSupplyStatus {
 
 impl std::fmt::Display for PowerSupplyStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-	let output = match self {
-	    PowerSupplyStatus::Unknown => "Unknown",
-	    PowerSupplyStatus::Charging => "Charging",
-	    PowerSupplyStatus::Discharging => "Discharging",
-	    PowerSupplyStatus::NotCharging => "Not charging",
-	    PowerSupplyStatus::Full => "Full",
-	};
-	write!(f, "{}", output)
+        let output = match self {
+            PowerSupplyStatus::Unknown => "Unknown",
+            PowerSupplyStatus::Charging => "Charging",
+            PowerSupplyStatus::Discharging => "Discharging",
+            PowerSupplyStatus::NotCharging => "Not charging",
+            PowerSupplyStatus::Full => "Full",
+        };
+        write!(f, "{}", output)
     }
 }
 
@@ -82,11 +82,11 @@ impl TryFrom<&str> for PowerSupplyCapacity {
 
 impl std::fmt::Display for PowerSupplyCapacity {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-	if let PowerSupplyCapacity::Level(level) = self {
-	    write!(f, "{}", level)
-	} else {
-	    write!(f, "Unknown")
-	}
+        if let PowerSupplyCapacity::Level(level) = self {
+            write!(f, "{}", level)
+        } else {
+            write!(f, "Unknown")
+        }
     }
 }
 
@@ -127,15 +127,15 @@ impl TryFrom<&str> for PowerSupplyCapacityLevel {
 
 impl std::fmt::Display for PowerSupplyCapacityLevel {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-	let value = match self {
-	    PowerSupplyCapacityLevel::Unknown => "Unknown",
-	    PowerSupplyCapacityLevel::Critical => "Critical",
-	    PowerSupplyCapacityLevel::Low => "Low",
-	    PowerSupplyCapacityLevel::Normal => "Normal",
-	    PowerSupplyCapacityLevel::High => "High",
-	    PowerSupplyCapacityLevel::Full => "Full",
-	};
-	write!(f, "{}", value)
+        let value = match self {
+            PowerSupplyCapacityLevel::Unknown => "Unknown",
+            PowerSupplyCapacityLevel::Critical => "Critical",
+            PowerSupplyCapacityLevel::Low => "Low",
+            PowerSupplyCapacityLevel::Normal => "Normal",
+            PowerSupplyCapacityLevel::High => "High",
+            PowerSupplyCapacityLevel::Full => "Full",
+        };
+        write!(f, "{}", value)
     }
 }
 
@@ -165,11 +165,11 @@ impl TryFrom<&str> for PowerSupplyManufacturer {
 
 impl std::fmt::Display for PowerSupplyManufacturer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-	if let PowerSupplyManufacturer::Manufacturer(name) = self {
-	    write!(f, "{}", name)
-	} else {
-	    write!(f, "Unknown")
-	}
+        if let PowerSupplyManufacturer::Manufacturer(name) = self {
+            write!(f, "{}", name)
+        } else {
+            write!(f, "Unknown")
+        }
     }
 }
 
@@ -199,11 +199,11 @@ impl TryFrom<&str> for PowerSupplyModelName {
 
 impl std::fmt::Display for PowerSupplyModelName {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-	if let PowerSupplyModelName::ModelName(model_name) = self {
-	    write!(f, "{}", model_name)
-	} else {
-	    write!(f, "Unknown")
-	}
+        if let PowerSupplyModelName::ModelName(model_name) = self {
+            write!(f, "{}", model_name)
+        } else {
+            write!(f, "Unknown")
+        }
     }
 }
 
@@ -233,11 +233,11 @@ impl TryFrom<&str> for PowerSupplySerialNumber {
 
 impl std::fmt::Display for PowerSupplySerialNumber {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-	if let PowerSupplySerialNumber::SerialNumber(serial_number) = self {
-	    write!(f, "{}", serial_number)
-	} else {
-	    write!(f, "Unknown")
-	}
+        if let PowerSupplySerialNumber::SerialNumber(serial_number) = self {
+            write!(f, "{}", serial_number)
+        } else {
+            write!(f, "Unknown")
+        }
     }
 }
 
@@ -253,13 +253,16 @@ pub struct Battery {
 
 impl std::fmt::Display for Battery {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-	write!(f, "{}: {} ({}) | {}% ({}) | {} ", self.manufacturer,
-	       self.model_name,
-	       self.serial_number,
-	       self.capacity,
-	       self.capacity_level,
-	       self.status,
-	)
+        write!(
+            f,
+            "{}: {} ({}) | {}% ({}) | {} ",
+            self.manufacturer,
+            self.model_name,
+            self.serial_number,
+            self.capacity,
+            self.capacity_level,
+            self.status,
+        )
     }
 }
 
