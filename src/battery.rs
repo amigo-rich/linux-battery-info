@@ -297,23 +297,23 @@ impl Battery {
             }
             match *item {
                 "capacity" => {
-                    capacity = PowerSupplyCapacity::try_from(item_content.as_str()).unwrap()
+                    capacity = PowerSupplyCapacity::try_from(item_content.as_str())?
                 }
                 "capacity_level" => {
                     capacity_level =
-                        PowerSupplyCapacityLevel::try_from(item_content.as_str()).unwrap()
+                        PowerSupplyCapacityLevel::try_from(item_content.as_str())?
                 }
                 "manufacturer" => {
-                    manufacturer = PowerSupplyManufacturer::try_from(item_content.as_str()).unwrap()
+                    manufacturer = PowerSupplyManufacturer::try_from(item_content.as_str())?
                 }
                 "model_name" => {
-                    model_name = PowerSupplyModelName::try_from(item_content.as_str()).unwrap()
+                    model_name = PowerSupplyModelName::try_from(item_content.as_str())?
                 }
                 "serial_number" => {
                     serial_number =
-                        PowerSupplySerialNumber::try_from(item_content.as_str()).unwrap()
+                        PowerSupplySerialNumber::try_from(item_content.as_str())?
                 }
-                "status" => status = PowerSupplyStatus::try_from(item_content.as_str()).unwrap(),
+                "status" => status = PowerSupplyStatus::try_from(item_content.as_str())?,
                 _ => return Err(Error::SysFsBatteryItem),
             }
         }
