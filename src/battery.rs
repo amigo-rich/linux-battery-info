@@ -35,6 +35,19 @@ impl TryFrom<&str> for PowerSupplyStatus {
     }
 }
 
+impl std::fmt::Display for PowerSupplyStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+	let output = match self {
+	    PowerSupplyStatus::Unknown => "Unknown",
+	    PowerSupplyStatus::Charging => "Charging",
+	    PowerSupplyStatus::Discharging => "Discharging",
+	    PowerSupplyStatus::NotCharging => "Not charging",
+	    PowerSupplyStatus::Full => "Full",
+	};
+	write!(f, "{}", output)
+    }
+}
+
 #[derive(Debug)]
 pub enum PowerSupplyCapacity {
     Unknown,
@@ -64,6 +77,16 @@ impl TryFrom<&str> for PowerSupplyCapacity {
             Err(_) => return Err(Error::TryFromConversion),
         };
         Ok(PowerSupplyCapacity::Level(level))
+    }
+}
+
+impl std::fmt::Display for PowerSupplyCapacity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+	if let PowerSupplyCapacity::Level(level) = self {
+	    write!(f, "{}", level)
+	} else {
+	    write!(f, "Unknown")
+	}
     }
 }
 
@@ -102,6 +125,20 @@ impl TryFrom<&str> for PowerSupplyCapacityLevel {
     }
 }
 
+impl std::fmt::Display for PowerSupplyCapacityLevel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+	let value = match self {
+	    PowerSupplyCapacityLevel::Unknown => "Unknown",
+	    PowerSupplyCapacityLevel::Critical => "Critical",
+	    PowerSupplyCapacityLevel::Low => "Low",
+	    PowerSupplyCapacityLevel::Normal => "Normal",
+	    PowerSupplyCapacityLevel::High => "High",
+	    PowerSupplyCapacityLevel::Full => "Full",
+	};
+	write!(f, "{}", value)
+    }
+}
+
 #[derive(Debug)]
 pub enum PowerSupplyManufacturer {
     Unknown,
@@ -123,6 +160,16 @@ impl TryFrom<&str> for PowerSupplyManufacturer {
         }
         let manufacturer = String::from(value.trim());
         Ok(PowerSupplyManufacturer::Manufacturer(manufacturer))
+    }
+}
+
+impl std::fmt::Display for PowerSupplyManufacturer {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+	if let PowerSupplyManufacturer::Manufacturer(name) = self {
+	    write!(f, "{}", name)
+	} else {
+	    write!(f, "Unknown")
+	}
     }
 }
 
@@ -150,6 +197,16 @@ impl TryFrom<&str> for PowerSupplyModelName {
     }
 }
 
+impl std::fmt::Display for PowerSupplyModelName {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+	if let PowerSupplyModelName::ModelName(model_name) = self {
+	    write!(f, "{}", model_name)
+	} else {
+	    write!(f, "Unknown")
+	}
+    }
+}
+
 #[derive(Debug)]
 pub enum PowerSupplySerialNumber {
     Unknown,
@@ -174,6 +231,16 @@ impl TryFrom<&str> for PowerSupplySerialNumber {
     }
 }
 
+impl std::fmt::Display for PowerSupplySerialNumber {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+	if let PowerSupplySerialNumber::SerialNumber(serial_number) = self {
+	    write!(f, "{}", serial_number)
+	} else {
+	    write!(f, "Unknown")
+	}
+    }
+}
+
 #[derive(Debug)]
 pub struct Battery {
     capacity: PowerSupplyCapacity,
@@ -182,6 +249,18 @@ pub struct Battery {
     manufacturer: PowerSupplyManufacturer,
     model_name: PowerSupplyModelName,
     serial_number: PowerSupplySerialNumber,
+}
+
+impl std::fmt::Display for Battery {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+	write!(f, "{}: {} ({}) | {}% ({}) | {} ", self.manufacturer,
+	       self.model_name,
+	       self.serial_number,
+	       self.capacity,
+	       self.capacity_level,
+	       self.status,
+	)
+    }
 }
 
 impl Battery {
